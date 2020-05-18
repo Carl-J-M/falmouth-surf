@@ -1,5 +1,6 @@
 import React from 'react';
 import '../App.css';
+import MapDisplay from '../components/MapDisplay';
 
 class HomepageContainer extends React.Component {
     constructor(props) {
@@ -27,9 +28,7 @@ class HomepageContainer extends React.Component {
     }
 
     render() {
-        return (
-            <p>I'm a homepage container!</p>
-        )
+        return <MapDisplay data={this.state.data} />;
     }
 }
 
