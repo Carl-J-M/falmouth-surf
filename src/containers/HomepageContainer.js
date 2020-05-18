@@ -7,20 +7,22 @@ class HomepageContainer extends React.Component {
         this.state = {
             data: {}
         };
-        this.initalizeSpots = this.initalizeSpots.bind(this);
+        this.initializeSpots = this.initializeSpots.bind(this);
     }
     componentDidMount() {
         console.log("Homepage Container mounted");
-        this.initalizeSpots();
+        this.initializeSpots();
         
     }
-    initalizeSpots() {
+    initializeSpots() {
         const url =
           "https://cors-anywhere.herokuapp.com/https://s3.eu-west-2.amazonaws.com/lpad-public-assets/software-test/all-spots.json";
         fetch(url)
         .then(res => res.json())
         .then(apiData =>
-            console.log(apiData)
+            this.setState({
+                data: apiData
+            })
         )
     }
 
