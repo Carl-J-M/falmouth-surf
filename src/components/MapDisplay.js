@@ -8,8 +8,12 @@ const Wrapper =  styled.div`
     height: ${props => props.height};
 `;
 
-export default class MapDisplay extends React.Component {
 
+export default class MapDisplay extends React.Component {
+  constructor(props) {
+    super(props);
+    console.log(props.locations);
+  } 
   componentDidMount() {
       this.map = L.map('map', {
           center: [58, 16],
@@ -22,8 +26,18 @@ export default class MapDisplay extends React.Component {
           maxZoom: 20,
           maxNativeZoom: 17,
       }).addTo(this.map);
+
   }
+
+  
   render() {
-    return  <Wrapper width="1280px" height="720px" id="map"/>
+    return (
+      <>
+        <p>{this.props.locations[0]}</p>
+        <Wrapper width="100vw" height="420px" id="map" />
+      </>
+    ); 
   }
+
+
 }
