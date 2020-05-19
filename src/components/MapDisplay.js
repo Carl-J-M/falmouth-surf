@@ -12,7 +12,10 @@ const Wrapper =  styled.div`
 export default class MapDisplay extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props.locations);
+    this.state =  {
+        markers: []
+    }
+    this.addMarkers = this.addMarkers.bind(this);
   } 
   componentDidMount() {
       this.map = L.map('map', {
@@ -27,14 +30,32 @@ export default class MapDisplay extends React.Component {
           maxNativeZoom: 17,
       }).addTo(this.map);
 
+
+
+     
+            
+  }
+  addMarkers(props) {
+     if (props.length > 1) {
+        props.forEach(element => {
+                          var circle = L.circle([element[2], element[3]], {
+                            color: "red",
+                            fillColor: "#f03",
+                            fillOpacity: 0.5,
+                            radius: 800
+                          }).addTo(this.map);
+        });
+     }
+        
   }
 
   
   render() {
+       this.addMarkers(this.props.locations);
     return (
       <>
-        <p>{this.props.locations[0]}</p>
-        <Wrapper width="100vw" height="420px" id="map" />
+        <p>{this.props.name}</p>
+        <Wrapper width="100vw" height="820px" id="map" />
       </>
     ); 
   }
