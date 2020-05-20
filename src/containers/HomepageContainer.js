@@ -2,15 +2,17 @@ import React from 'react';
 import '../App.css';
 import MapDisplay from '../components/MapDisplay';
 
+
 class HomepageContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: {},
+      locations: {},
       name: "Falmouth Surf"
     };
     this.initializeSpots = this.initializeSpots.bind(this);
     this.formatData = this.formatData.bind(this);
+    this.getWeatherData = this.getWeatherData.bind(this);
   }
   componentDidMount() {
     this.initializeSpots();
@@ -22,20 +24,43 @@ class HomepageContainer extends React.Component {
       .then(res => res.json())
       .then(apiData =>
         this.setState({
-          data: this.formatData(apiData)
+          locations: this.formatData(apiData)
         })
       );
   }
-  formatData(apiData) {
-    const formatted = apiData.map(spot => {
-      return [spot.county_name, spot.spot_name, spot.latitude, spot.longitude];
+  getWeatherData(formattedData) {
+    formattedData.forEach(element => {
+        let lat,lon;
+        lat = element[2];
+        lon = element[3];
+        let url = `api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${"d0fd620b9c322aa7e3fd301c66012344"}`;
+        console.log(url);
     });
-    return formatted;
+  }
+
+  formatData(apiData) {
+      if (apiData.length > 1) {
+        const formatted = apiData.map(spot => {
+          return [
+            spot.county_name,
+            spot.spot_name,
+            spot.latitude,
+            spot.longitude
+          ];
+        });
+        return formatted;
+    }
+    return "No data!"
   }
 
   render() {
-    return <MapDisplay locations={this.state.data} name={this.state.name} />;
+              if (this.state.locations.length > 1) {
+                  console.log("this.state.loc:", this.state.locations)
+                this.getWeatherData(this.state.locations);
+              }
+    return <MapDisplay locations={this.state.locations} name={this.state.name} />;
   }
+
 }
 
 export default HomepageContainer;

@@ -19,8 +19,8 @@ export default class MapDisplay extends React.Component {
   } 
   componentDidMount() {
       this.map = L.map('map', {
-          center: [58, 16],
-          zoom: 6,
+          center: [35, -120],
+          zoom: 8,
           zoomControl: false
       });
 
