@@ -1,6 +1,7 @@
 import React from 'react';
 import '../App.css';
 import MapDisplay from '../components/MapDisplay';
+import { arrayExpression } from '@babel/types';
 
 
 class HomepageContainer extends React.Component {
@@ -9,7 +10,7 @@ class HomepageContainer extends React.Component {
     this.state = {
       locations: {},
       weather: {},
-      name: "Falmouth Surf"
+      name: "WAVECHASER"
     };
     this.initializeSpots = this.initializeSpots.bind(this);
     this.formatSpots = this.formatSpots.bind(this);
@@ -21,7 +22,7 @@ class HomepageContainer extends React.Component {
     
   }
 
-  initializeSpots() {
+  initializeSpots() { // gets surfing locations 
     const url =
       "https://cors-anywhere.herokuapp.com/https://s3.eu-west-2.amazonaws.com/lpad-public-assets/software-test/all-spots.json";
     fetch(url)
@@ -32,8 +33,7 @@ class HomepageContainer extends React.Component {
         })
       );
   }
-  formatSpots(apiData) {
-    if (apiData.length > 1) {
+  formatSpots(apiData) {  
       const formatted = apiData.map(spot => {
         return [
           spot.county_name,
@@ -44,11 +44,11 @@ class HomepageContainer extends React.Component {
       });
       this.initializeWeatherData(formatted);
       return formatted;
-    }
-    return;
   }
   initializeWeatherData(formattedData) {
-    return formattedData.map(element => {
+    const array = [];
+    const weatherLocations = formattedData.map(element => {
+      let newEl;
       let lat, lon;
       lat = element[2];
       lon = element[3];
@@ -57,16 +57,30 @@ class HomepageContainer extends React.Component {
         .then(res => res.json())
         .then(apiData => {
           this.formatWeather(apiData, element);
-        });
+          newEl = element;
+          console.log("newEl", newEl);
+          array.push(newEl);
+        })
+        .then(val => {
+         this.setState({
+          weather: array
+         })
+        })
     });
+
+   
   }
   formatWeather(data, element) {
-    element.push(data.main.temp);
-    element.push(data.wind.speed);
+    if(data.main.temp) {
+          element.push(data.main.temp);
+    }
+    if(data.wind.speed) {
+        element.push(data.wind.speed);
+    }  
   }
   render() {
     return (
-      <MapDisplay locations={this.state.locations} name={this.state.name} />
+      <MapDisplay locations={this.state.weather} name={this.state.name} />
     );
   }
 }

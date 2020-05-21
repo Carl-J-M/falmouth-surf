@@ -21,15 +21,18 @@ export default class MapDisplay extends React.Component {
   componentDidMount() {
       this.map = L.map('map', {
           center: [35, -120],
-          zoom: 8,
+          zoom: 5,
           zoomControl: false
       });
 
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      L.tileLayer(
+        "https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}{r}.png",
+        {
           detectRetina: true,
           maxZoom: 20,
-          maxNativeZoom: 17,
-      }).addTo(this.map);
+          maxNativeZoom: 17
+        }
+      ).addTo(this.map);
 
       
 
@@ -39,10 +42,9 @@ export default class MapDisplay extends React.Component {
   addMarkers() {
      if (this.props.locations.length > 1) {
         this.props.locations.forEach(element => {
-            console.log("addmarkers location", element);
                             var circle = L.circle([element[2], element[3]], {
-                            color: this.getColor(element[4]),
-                            fillColor: "white",
+                            color: this.getColor(element[5]),
+                            fillColor: this.getColor(element[5]),
                             fillOpacity: 0.5,
                             radius: 800
                           }).addTo(this.map);
@@ -50,16 +52,38 @@ export default class MapDisplay extends React.Component {
      }
         
   }
-  getColor(temperature) {
-    console.log("getColor", temperature);
+  getColor(metersSecondWind) {
+    const knots = metersSecondWind *= 1.94384
+
+    if (knots >= 10) {
+      return "red"
+    }
+    if (knots < 10) {
+      return "blue"
+    } 
 }
   
   render() {
       this.addMarkers(); 
     return (
       <>
-        <p>{this.props.name}</p>
-        <Wrapper width="100vw" height="820px" id="map" />
+        <h1 className="pageTitle">{this.props.name}</h1>
+        <div className="selectionBox">
+          <div className="easy selection">NOVICE</div>
+          <div className="medium selection">INTERMEDIATE</div>
+          <div className="hard selection">EXPERT</div>
+          <div></div>
+        </div>
+        <Wrapper width="100vw" height="600px" id="map" />
+        <div className="instructionContainer">
+          <h3>KEY: Wind Speed</h3>
+          <div>
+            <a className="red">O</a> 10+ Knots
+          </div>
+          <div>
+            <a className="blue">O</a> 10- Knots
+          </div>
+        </div>
       </>
     ); 
   }

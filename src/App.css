@@ -1,0 +1,65 @@
+.pageTitle {
+    color: dodgerblue;
+    font-size: 3em;
+    letter-spacing: 1em;
+    font-weight: 200;
+    font-family: 'Montserrat', sans-serif;
+    width: 100vw;
+    text-align: center;
+}
+
+.selectionBox {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100vw;
+    height: 5em;
+}
+
+.selection {
+    width: 30vw;
+    text-align: center;
+    margin-top: 2em;
+    color: white;
+    border: solid white 2px;
+    border-radius: 0.2em;
+    font-size: 1.5em;
+    padding: 0.5em;
+    margin: 0.5em;
+    font-weight: 900;
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+}
+
+.selection:hover {
+    background-color: white;
+    color: dodgerblue;
+}
+
+.easy {
+    color: forestgreen;
+
+}
+
+.medium {
+    color: orange;
+}
+
+.hard {
+    color: red;
+}
+
+.red {
+    background-color: red;
+    color: red;
+}
+.blue {
+        background-color: blue;
+
+    color: blue;
+}
+.instructionContainer {
+    font-family: 'Montserrat', sans-serif;
+    margin-left: 5em;
+    font-size: 2em;
+    margin-bottom: 10em;
+}
