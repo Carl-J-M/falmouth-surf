@@ -16,6 +16,7 @@ export default class MapDisplay extends React.Component {
         markers: []
     }
     this.addMarkers = this.addMarkers.bind(this);
+    this.getColor = this.getColor.bind(this);
   } 
   componentDidMount() {
       this.map = L.map('map', {
@@ -30,17 +31,18 @@ export default class MapDisplay extends React.Component {
           maxNativeZoom: 17,
       }).addTo(this.map);
 
-
+      
 
      
             
   }
-  addMarkers(props) {
-     if (props.length > 1) {
-        props.forEach(element => {
-                          var circle = L.circle([element[2], element[3]], {
-                            color: "red",
-                            fillColor: "#f03",
+  addMarkers() {
+     if (this.props.locations.length > 1) {
+        this.props.locations.forEach(element => {
+            console.log("addmarkers location", element);
+                            var circle = L.circle([element[2], element[3]], {
+                            color: this.getColor(element[4]),
+                            fillColor: "white",
                             fillOpacity: 0.5,
                             radius: 800
                           }).addTo(this.map);
@@ -48,10 +50,12 @@ export default class MapDisplay extends React.Component {
      }
         
   }
-
+  getColor(temperature) {
+    console.log("getColor", temperature);
+}
   
   render() {
-       this.addMarkers(this.props.locations);
+      this.addMarkers(); 
     return (
       <>
         <p>{this.props.name}</p>
