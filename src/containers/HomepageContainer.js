@@ -40,22 +40,19 @@ class HomepageContainer extends React.Component {
           spot.longitude
         ];
       });
-      return this.getWeatherData;
+      return formatted;
     }
     return "No data!";
   }
-  getWeatherData(formattedData) {
-    formattedData.forEach(element => {
-      let lat, lon;
-      lat = element[2];
-      lon = element[3];
-      let url = `api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${"d0fd620b9c322aa7e3fd301c66012344"}`;
-      fetch(url)
-      .then(res => res.json())
-      .then(apiData => {
-              console.log(apiData);
-      })
-    });
+  getWeatherData() {
+
+    let appendedData = this.state.locations.map(element => {
+         let lat, lon;
+         lat = element[2];
+         lon = element[3];
+         let url = `api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${"d0fd620b9c322aa7e3fd301c66012344"}`;
+         return url;
+    })
   }
   initializeWeather(data, element) {
       console.log("Element", element);
@@ -64,7 +61,6 @@ class HomepageContainer extends React.Component {
   }
 
   render() {
-
     return (
       <MapDisplay locations={this.state.locations} name={this.state.name} />
     );
