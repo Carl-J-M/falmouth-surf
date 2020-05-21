@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import HomepageContainer from './containers/HomepageContainer';
 
-function App() {
+class App extends Component {
+  render() {
   return (
     <div className="App">
       <HomepageContainer />
@@ -10,4 +11,6 @@ function App() {
   );
 }
 
+
+}
 export default App;

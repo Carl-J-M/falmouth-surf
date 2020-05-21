@@ -3,7 +3,10 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 
+
+  console.log("index.js is running");
 ReactDOM.render(
+
   <React.StrictMode>
     <App />
   </React.StrictMode>,
