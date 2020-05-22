@@ -37,15 +37,18 @@
 
 .easy {
     color: forestgreen;
+    border: solid forestgreen 2px;
 
 }
 
 .medium {
     color: orange;
+    border: solid orange 2px;
 }
 
 .hard {
     color: red;
+    border: solid red 2px;
 }
 
 .red {

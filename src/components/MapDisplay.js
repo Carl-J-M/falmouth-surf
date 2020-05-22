@@ -15,7 +15,7 @@ export default class MapDisplay extends React.Component {
     this.state =  {
         searchRange: {
           max: 10,
-          min: 0
+          skill: "Novice"
         }
     }
     this.addMarkers = this.addMarkers.bind(this);
@@ -71,21 +71,24 @@ export default class MapDisplay extends React.Component {
     if (skillLevel === 1) {
         this.setState({
           searchRange: {
-            max: 10
+            max: 10,
+            skill: "Novice"
           }
         })
     }
     if (skillLevel === 2) {
         this.setState({
           searchRange: {
-            max: 20
+            max: 20,
+            skill: "Intermediate"
           }
         })
     }
     if (skillLevel === 3) {
         this.setState({
           searchRange: {
-            max: 30
+            max: 30,
+            skill: "Expert"
           }
         })
     }
@@ -108,15 +111,18 @@ export default class MapDisplay extends React.Component {
             EXPERT
           </div>
         </div>
-        <Wrapper width="100vw" height="600px" id="map" />
+        <Wrapper width="100vw" height="500px" id="map" />
         <div className="instructionContainer">
-          <h3>KEY: Wind Speed</h3>
+          <h3>{this.state.searchRange.skill}: Wind Speed</h3>
           <div>
             <a className="red">O</a> {this.state.searchRange.max}+ Knots
           </div>
           <div>
             <a className="blue">O</a> {this.state.searchRange.max}- Knots
           </div>
+        </div>
+        <div>
+
         </div>
       </>
     ); 
