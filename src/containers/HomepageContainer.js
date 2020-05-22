@@ -47,7 +47,7 @@ class HomepageContainer extends React.Component {
   }
   initializeWeatherData(formattedData) {
     const array = [];
-    const weatherLocations = formattedData.map(element => {
+    formattedData.forEach(element => {
       let newEl;
       let lat, lon;
       lat = element[2];
@@ -58,7 +58,6 @@ class HomepageContainer extends React.Component {
         .then(apiData => {
           this.formatWeather(apiData, element);
           newEl = element;
-          console.log("newEl", newEl);
           array.push(newEl);
         })
         .then(val => {
